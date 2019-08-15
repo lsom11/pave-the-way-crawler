@@ -10,13 +10,13 @@ def login_linkedin():
     html = client.get(HOMEPAGE_URL).content
     soup = BeautifulSoup(html, "html.parser")
     csrf = soup.find(id="loginCsrfParam-login")['value']
-# 
-    login_information = {
-        'session_key': 'Login',
-        'session_password': 'Password',
+
+    login_credentials = {
+        'session_key':'Login',
+        'session_password':'Password',
         'loginCsrfParam': csrf,
     }
 
-    client.post(LOGIN_URL, data=login_information)
-    return client
+    client.post(LOGIN_URL, data=login_credentials)
 
+    client.get(HOMEPAGE_URL)

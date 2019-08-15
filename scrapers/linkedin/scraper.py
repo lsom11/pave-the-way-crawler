@@ -1,13 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 from time import sleep
-# import sys
-
-# sys.path.insert(0, './login.py')
 from login import login_linkedin
 
 
-HOMEPAGE_URL = 'https://www.linkedin.com/in/williamhgates/'
+HOMEPAGE_URL = 'https://www.linkedin.com/in/vanessa-ara%C3%BAjo-371988159/'
 
 
 def get_url(client, url):
@@ -22,11 +19,13 @@ def sleep_crawler():
     sleep(3)
 
 def scrape():
-    client = beautify(login_linkedin())
-    page = beautify(HOMEPAGE_URL)
+    client = login_linkedin()
+    page = beautify(client, HOMEPAGE_URL)
 
     print(page)
 
     sleep_crawler()
 
-scrape()
+# scrape()
+
+login_linkedin()
