@@ -1,14 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 
+
+SEARCH_URL = "https://facebook.com/search/top/?q="
 SPACE_CHARACTER = '%20'
 name= input("Enter your name:")
 name = name.replace(" ", SPACE_CHARACTER)
-url = 'https://facebook.com/search/top/?q='
 
-
-print(url+name)
-page = requests.get(url + name)
+page = requests.get(SEARCH_URL + name)
 
 soup = BeautifulSoup(page.text, 'html.parser')
 
