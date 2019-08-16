@@ -40,7 +40,7 @@ def sleep_crawler():
 
 def scrape():
     login_linkedin()
-    # page = beautify()
+    page = beautify()
 
 
     sleep_crawler()
