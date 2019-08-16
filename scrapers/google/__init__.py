@@ -1,0 +1,1 @@
+from scrapers.google.scraper import scrape
