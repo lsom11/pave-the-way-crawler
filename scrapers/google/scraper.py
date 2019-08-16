@@ -1,32 +1,26 @@
 import requests
 from bs4 import BeautifulSoup
 from time import sleep
-# import sys
 
-# sys.path.insert(0, './login.py')
-from login import login_linkedin
+SEARCH_URL = 'https://www.google.com/search?q='
 
-
-HOMEPAGE_URL = 'https://www.linkedin.com/in/williamhgates/'
-
-
-def get_url(client, url):
-    return client.get(url)
-
-
-def beautify(client, url):
-    source = get_url(client, url)
-    return BeautifulSoup(source.content, "html.parser")
+def beautify(input_search):
+    source = requests.get(SEARCH_URL + input_search)
+    return BeautifulSoup(source.content, 'html.parser')
 
 def sleep_crawler():
     sleep(3)
 
-def scrape():
-    client = beautify(login_linkedin())
-    page = beautify(HOMEPAGE_URL)
+def scrape(input_search):
+    page = beautify(input_search)
 
     print(page)
 
+    headline_results = page.find_all('div', class_ ='srg')
+    for h in headline_results:
+        print(h)
+
     sleep_crawler()
 
-scrape()
+name = input('Enter your name:')
+scrape(name.replace(" ", "+"))
