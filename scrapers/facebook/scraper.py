@@ -1,11 +1,13 @@
-# import requests
-# from bs4 import BeautifulSoup
+import facebook
+
+FACEBOOK_TOKEN = ''
+graph = facebook.GraphAPI(access_token=FACEBOOK_TOKEN, version="2.12")
 
 
 # SEARCH_URL = "https://facebook.com/search/top/?q="
 # SPACE_CHARACTER = '%20'
 # name= input("Enter your name:")
-# name = name.replace(" ", SPACE_CHARACTER)
+# name = name.replace(" ", SPACE_CHARACTER)2.12
 
 # page = requests.get(SEARCH_URL + name)
 

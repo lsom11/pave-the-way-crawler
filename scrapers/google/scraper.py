@@ -1,26 +1,25 @@
-import requests
-from bs4 import BeautifulSoup
-from time import sleep
+from googleapiclient.discovery import build
 
-SEARCH_URL = 'https://www.google.com/search?q='
+API_KEY = 'AIzaSyC2uE6WMCPO2xcTsqULI_wa_iwPhP5Zzj0'
+CSE_ID = '013040238308795042536:ovfr8s2onym'
 
-def beautify(input_search):
-    source = requests.get(SEARCH_URL + input_search)
-    return BeautifulSoup(source.content, 'html.parser')
 
-def sleep_crawler():
-    sleep(3)
+def google_search(search_term, api_key, cse_id, **kwargs):
+    filter_itens(get_itens(get_result(search_term, api_key, cse_id, **kwargs)))
 
-def scrape(input_search):
-    page = beautify(input_search)
+def get_result(search_term, api_key, cse_id, **kwargs):
+    service = build("customsearch", "v1", developerKey=api_key)
+    return service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()
 
-    print(page)
 
-    headline_results = page.find_all('div', class_ ='srg')
-    for h in headline_results:
-        print(h)
+def get_itens(result):
+    return result['items']
 
-    sleep_crawler()
+def filter_itens(items):
+    for item in items:
+        if item['displayLink'] == 'br.linkedin.com' or item['displayLink'] == 'pt-br.facebook.com':
+            print(item['formattedUrl'])
 
-name = input('Enter your name:')
-scrape(name.replace(" ", "+"))
+
+google_search("Marcel Rapanelli", API_KEY, CSE_ID)
+
