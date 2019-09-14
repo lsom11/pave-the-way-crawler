@@ -1,11 +1,14 @@
-class Creator(site):
-    @abstractmethod
-    def factory_method(self):
-        pass
+from scrapers.linkedin.scraper import LinkedInScraper
+from scrapers.google.scraper import GoogleScraper
+from scrapers.facebook.scraper import FacebookScraper
 
-    def some_operation(self) -> str:
-        product = self.factory_method()
-
-        result = f"Creator: The same creator's code has just worked with {product.operation()}"
-
-        return result
+class ScraperCreator(site):
+    def factory(type):
+        if type == "LinkedIn":
+            return LinkedInScraper()
+        if type == "Google":
+            return GoogleScraper()
+        if type == "Facebook":
+            return FacebookScraper()
+        assert 0, "Bad shape creation: " + type
+    factory = staticmethod(factory)
